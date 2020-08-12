@@ -5,11 +5,12 @@ import java.io.Serializable;
 public class FraudeResponse implements Serializable {
 
 	private static final long serialVersionUID = -3602790210316764323L;
+
 	private String message;
 	private String countryName;
 	private String isoName;
 	private String currencyName;
-	private String currencyValueUS;
+	private String currencyValue;
 
 	public String getMessage() {
 		return message;
@@ -43,16 +44,12 @@ public class FraudeResponse implements Serializable {
 		this.currencyName = currencyName;
 	}
 
-	public String getCurrencyValueUS() {
-		return currencyValueUS;
+	public String getCurrencyValue() {
+		return currencyValue;
 	}
 
-	public void setCurrencyValueUS(String currencyValueUS) {
-		this.currencyValueUS = currencyValueUS;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setCurrencyValue(String currencyValue) {
+		this.currencyValue = currencyValue;
 	}
 
 }
