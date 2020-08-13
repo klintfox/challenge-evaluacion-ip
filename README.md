@@ -16,26 +16,37 @@ El ejercicio consiste en construir una API Rest que permita:
 - La aplicación no deberá perder su estado ante un shutdown.
 - Además de funcionamiento, prestar atención al estilo y calidad del código fuente.
 
+## Solución 
 ### Docker
 ##### Servicio Evaluacion Ip:
 * Paso 1
     - Creación de la imagen
     ```sh
-    docker build -t klinux/evaluacion-ip:0.0.1.RELEASE . 
+    docker build -t kfroman/evaluacion-ip:0.0.1.RELEASE .
     ```
 * Paso 2 
-    - Crear contenedor con el nombre evaluacion-ip
+    - Creación del contenedor
     ```sh
-    docker run -d -p 8001:8001 --name=evaluacion-ip klinux/evaluacion-ip:0.0.1.RELEASE
+    docker run -d -p 8001:8001 --name=evaluacion-ip kfroman/evaluacion-ip:0.0.1-RELEASE
+    ```
+* Paso 3
+    - Para verificar el servicio usar el siguiente enlace
+    ```sh
+    localhost:8001/evaluate-ip/186.84.91.63
     ```
 ##### Servicio Evaluacion Fraude:
 * Paso 1
     - Creación de la imagen
     ```sh
-    docker build -t klinux/evaluacion-fraude:0.0.1.RELEASE . 
+    docker build -t kfroman/evaluacion-fraude:0.0.1.RELEASE .
     ```
 * Paso 2 
-    - Crear contenedor con el nombre evaluacion-fraude y realizar la comunicación con el servicio evaluacion-ip
+    - Creación del contenedor
     ```sh
-    docker run -d -p 8000:8000 --env EVALUATE_IP_SERVICE_HOST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip klinux/evaluacion-fraude:0.0.1.RELEASE
+    docker run -d -p 8000:8000 --env EVALUACION_IP_SERVICE_HOST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip kfroman/evaluacion-fraude:0.0.1.RELEASE
+    ```
+* Paso 3
+    - Para verificar el servicio usar el siguiente enlace
+    ```sh
+    localhost:8000/evaluate-fraud/186.84.91.60
     ```

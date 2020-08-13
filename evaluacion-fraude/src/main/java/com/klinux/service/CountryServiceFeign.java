@@ -10,7 +10,7 @@ import com.klinux.clients.CurrencyClientRest;
 import com.klinux.dto.Country;
 
 @Service("serviceFeign")
-public class CountryServiceFeign implements CountryService {	
+public class CountryServiceFeign implements CountryService {
 
 	@Autowired
 	private CountryClientRest countryFeign;
@@ -24,24 +24,32 @@ public class CountryServiceFeign implements CountryService {
 	@Autowired
 	private BlackListClientRest blackListFeing;
 
-	public boolean validateIp(String ip) throws Exception {
+	public boolean validateIp(String ip) {
 		boolean flag = false;
 		flag = blackListFeing.getBlackListIp(ip);
 		return flag;
 	}
 
-	public Country getCountryDetail(String ip) throws Exception {
+	public Country getCountryDetail(String ip) {
 		Country country = countryFeign.getCountryDetail(ip);
 		return country;
 	}
 
-	public String getCurrencyByCountryName(String countryName) throws Exception {
+	public String getCurrencyByCountryName(String countryName) {
 		String jsonCurrency = currencyFeing.getCurrencyByCountryName(countryName);
 		return jsonCurrency;
 	}
 
-	public String getCurrencyDetail(String currencyCode) throws Exception {
-		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
+	public String getCurrencyDetail(String currencyCode) {
+		String jsonConversion = "";
+		try {
+			jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
+			if (jsonConversion == null) {
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return jsonConversion;
 	}
 
