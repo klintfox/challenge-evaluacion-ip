@@ -29,7 +29,7 @@ El ejercicio consiste en construir una API Rest que permita:
 * Paso 2 
     - Creación del contenedor
     ```sh
-    docker run -d -p 8001:8001 --name=evaluacion-ip kfroman/evaluacion-ip:0.0.1-RELEASE
+    docker run -d -p 8001:8001 --name=evaluacion-ip kfroman/evaluacion-ip:0.0.1.RELEASE
     ```
 * Paso 3
     - Para verificar el servicio usar el siguiente enlace
@@ -45,10 +45,55 @@ El ejercicio consiste en construir una API Rest que permita:
 * Paso 2 
     - Creación del contenedor
     ```sh
-    docker run -d -p 8000:8000 --env EVALUACION_IP_SERVICE_HOST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip kfroman/evaluacion-fraude:0.0.1.RELEASE
+    docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip kfroman/evaluacion-fraude:0.0.1.RELEASE
     ```
 * Paso 3
     - Para verificar el servicio usar el siguiente enlace
     ```sh
     localhost:8000/evaluate-fraud/186.84.91.60
     ```
+
+### Lista de IP's en la Blacklist para pruebas del servicio "Evaluacion Fraude"
+INSERT INTO blacklist (ip) VALUES('186.84.91.59');
+INSERT INTO blacklist (ip) VALUES('186.84.91.61');
+INSERT INTO blacklist (ip) VALUES('186.84.91.62');
+INSERT INTO blacklist (ip) VALUES('186.84.91.63');
+INSERT INTO blacklist (ip) VALUES('186.84.91.64');
+INSERT INTO blacklist (ip) VALUES('186.84.91.65');
+INSERT INTO blacklist (ip) VALUES('186.84.91.66');
+INSERT INTO blacklist (ip) VALUES('186.84.91.67');
+INSERT INTO blacklist (ip) VALUES('186.84.91.68');
+INSERT INTO blacklist (ip) VALUES('186.84.91.69');
+INSERT INTO blacklist (ip) VALUES('186.84.91.70');
+INSERT INTO blacklist (ip) VALUES('186.84.91.71');
+INSERT INTO blacklist (ip) VALUES('186.84.91.72');
+INSERT INTO blacklist (ip) VALUES('186.84.91.73');
+INSERT INTO blacklist (ip) VALUES('186.84.91.74');
+INSERT INTO blacklist (ip) VALUES('186.84.91.75');
+
+<!-- 
+### Next Steps
+### DockerHub
+#### Subir release de la imagen evaluacion-ip
+    - Ejecutamos el siguiente comando
+     ```sh
+     docker push kfroman/evaluacion-ip:0.0.1.RELEASE
+     ```
+#### Subir release de la imagen evaluacion-fraude
+    - Ejecutamos el siguiente comando
+     ```sh
+     docker push kfroman/evaluacion-fraude:0.0.1.RELEASE
+     ```
+
+### Docker Compose
+ * Paso 1
+    - Clonamos el repositorio o lo descargamos
+ * Paso 2
+    - Abrimos la consola de comandos y nos posicionamos en la raiz del proyecto clonado
+* Paso 3
+    -Verificamos que exista el archivo docker.compose.yml
+* Paso 4
+    - Ejecutamos el siguiente comando
+    ```sh
+    docker-compose up -d
+    ``` -->

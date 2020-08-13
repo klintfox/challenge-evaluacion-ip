@@ -2,6 +2,14 @@ FROM maven:3.6.3-jdk-8-slim AS build
 WORKDIR /home/app
 COPY . /home/app
 
+#Variables
+#WS_COUNTRY=https://api.ip2country.info/
+#WS_CURRENCY=https://restcountries.eu/rest/v2/
+#WS_CONVERSION=http://data.fixer.io/api/
+#WS_BLACK_LIST=http://evaluacion-ip
+
+
+
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM openjdk:8-jdk-alpine

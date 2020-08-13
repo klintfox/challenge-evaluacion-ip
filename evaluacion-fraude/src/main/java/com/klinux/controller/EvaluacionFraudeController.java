@@ -30,7 +30,7 @@ public class EvaluacionFraudeController {
 
 	@GetMapping("/evaluate-fraud/{ip}")
 	public FraudeResponseDto evaluacionFraude(@PathVariable String ip) throws FraudeResponseNotFoundException {		
-		System.out.println("Start Time: " + new Date().getTime()/1000);
+		log.info("Start Time: " + new Date().getTime()/1000);
 		FraudeResponseDto response = new FraudeResponseDto();
 		boolean flag = false;
 		try {
@@ -69,9 +69,9 @@ public class EvaluacionFraudeController {
 				}				
 			}
 		} catch (Exception e) {
-			log.error("Error: ", e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
-		System.out.println("End Time: "+ new Date().getTime()/1000);		
+		log.info("End Time: "+ new Date().getTime()/1000);		
 		return response;
 	}
 }
