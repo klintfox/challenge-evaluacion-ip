@@ -29,12 +29,12 @@ public class EvaluacionFraudeController {
 	private CountryService contryService;
 
 	@GetMapping("/evaluate-fraud/{ip}")
-	public FraudeResponseDto evaluacionFraude(@PathVariable String ip) throws FraudeResponseNotFoundException {		
-		log.info("Start Time: " + new Date().getTime()/1000);
+	public FraudeResponseDto evaluacionFraude(@PathVariable String ip) throws FraudeResponseNotFoundException {
+		log.info("Start Time: " + new Date().getTime() / 1000);
 		FraudeResponseDto response = new FraudeResponseDto();
 		boolean flag = false;
 		try {
-			flag = contryService.validateIp(ip);			
+			flag = contryService.validateIp(ip);
 			if (!flag) {
 				// 1 get country detail
 				Country country = contryService.getCountryDetail(ip);
@@ -59,19 +59,22 @@ public class EvaluacionFraudeController {
 							response.setCurrencyValue(rate);
 							response.setMessage("OK");
 						} else {
-							response.setMessage("Error with the service: " + "${feign.urlConversion}");
+							response.setMessage("Error with the WS_CONVERSION");
 						}
 					} else {
-						response.setMessage("Error with the service: " + "${feign.urlCurrency}");
+						response.setMessage("Error with the service: WS_CURRENCY");
 					}
 				} else {
-					response.setMessage("Error with the service" + "${feign.urlCountry}");
-				}				
+					response.setMessage("Error with the service WS_COUNTRY");
+				}
+			} else {
+				log.info("IP Baneada: " + ip);
+				return response;
 			}
 		} catch (Exception e) {
 			log.error("Error: " + e.getMessage());
 		}
-		log.info("End Time: "+ new Date().getTime()/1000);		
+		log.info("End Time: " + new Date().getTime() / 1000);
 		return response;
 	}
 }
