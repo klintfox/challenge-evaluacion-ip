@@ -2,74 +2,70 @@ package com.klinux.service;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klinux.clients.BlackListClientRest;
 import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
 import com.klinux.dto.Country;
-import com.klinux.dto.FraudeResponseDto;
 
 @SpringBootTest
 public class CountryServiceFeignTest {
 
 	@Autowired
+	private BlackListClientRest blackListFeing;
+
+	@Autowired
 	private CountryClientRest countryFeign;
-	
+
 	@Autowired
 	private CurrencyClientRest currencyFeing;
 
 	@Autowired
 	private ConversionClientRest conversionFeing;
-	
-	@Test	
-	public void testGetInfo() {
-		String ip = "186.84.91.60";
-		FraudeResponseDto response = new FraudeResponseDto();
-		try {
-		Country country = countryFeign.getCountryDetail(ip);
-		if (country != null) {
-			response.setCountryName(country.getCountryName());
-			response.setIsoName(country.getCountryCode3());
 
-			// 2 get currency of a country
-			String jsonCurrency = currencyFeing.getCurrencyByCountryName(country.getCountryName());
-			if (jsonCurrency != null) {
-				ObjectMapper mapper = new ObjectMapper();
-				JsonNode jsonNode = mapper.readTree(jsonCurrency);
-				String currencyCode = jsonNode.get(0).get("currencies").get(0).get("code").asText();
-				response.setCurrencyName(currencyCode);
-
-				// 3 get conversion for currencyCode
-				String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
-				if (jsonConversion != null) {
-					ObjectMapper mapperConversion = new ObjectMapper();
-					JsonNode jsonNodeConversion = mapperConversion.readTree(jsonConversion);
-					String rate = jsonNodeConversion.get("rates").get(currencyCode).asText();
-					response.setCurrencyValue(rate);
-					response.setMessage("OK");
-				} else {
-					response.setMessage("Error with the service: " + "${feign.urlConversion}");
-				}
-			} else {
-				response.setMessage("Error with the service: " + "${feign.urlCurrency}");
-			}
-		} else {
-			response.setMessage("Error with the service" + "${feign.urlCountry}");
-		}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		assertTrue(response.toString().length() > 0);
+	@Test
+	@DisplayName("testValidateIpInBlackList")
+	public void testValidateIpInBlackList() {
+		String ip = "186.84.91.61";
+		boolean flag = blackListFeing.getBlackListIp(ip);
+		assertTrue(flag);
 	}
 
 	@Test
-	public void testValidateIp() {
-		assertTrue(true);
+	@DisplayName("testValidateIpNotInBlackList")
+	public void testValidateIpNotInBlackList() {
+		String ip = "186.84.91.60";
+		boolean flag = blackListFeing.getBlackListIp(ip);
+		assertTrue(!flag);
+	}
+
+	@Test
+	@DisplayName("testCountryDetail")
+	public void testCountryDetail() throws Exception {
+		String ip = "186.84.91.60";
+		Country country = countryFeign.getCountryDetail(ip);
+		assertTrue(country.toString().length() > 0);
+	}
+
+	@Test
+	@DisplayName("testCurrencyByCountryName")
+	public void testCurrencyByCountryName() throws Exception {
+		String countryName = "Colombia";
+		String jsonCurrency = currencyFeing.getCurrencyByCountryName(countryName);
+		assertTrue(jsonCurrency.length() > 0);
+	}
+
+	@Test
+	@DisplayName("testCurrencyDetail")
+	public void testCurrencyDetail() throws Exception {
+		String currencyCode = "COP";
+		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
+		assertTrue(jsonConversion.length() > 0);
 	}
 
 }

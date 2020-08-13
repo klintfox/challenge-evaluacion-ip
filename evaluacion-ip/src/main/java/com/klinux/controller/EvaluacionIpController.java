@@ -20,6 +20,7 @@ public class EvaluacionIpController {
 
 	@GetMapping("/evaluate-ip/{ip}")
 	public Boolean evaluateIp(@PathVariable String ip) {
+		log.info("Start: ");
 		boolean flag = false;
 		try {
 			BlackList bl = evaluacionRepository.findByIp(ip);
