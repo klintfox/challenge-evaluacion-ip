@@ -63,7 +63,6 @@ public class CountryServiceFeign implements CountryService {
 			} else {
 				response.setMessage("Error with the service" + "${feign.urlCountry}");
 			}
-
 		} catch (Exception e) {
 			log.error("Error: " + e.getMessage());
 		}

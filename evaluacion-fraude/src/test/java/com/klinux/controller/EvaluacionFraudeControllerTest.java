@@ -35,7 +35,7 @@ class EvaluacionFraudeControllerTest {
 	private ConversionClientRest conversionFeing;
 
 	@Test
-	@DisplayName("1 testController")
+	@DisplayName("testController")
 	public void testEvaluacionFraude() throws Exception {
 		String ip = "186.84.91.60";
 		FraudeResponseDto response = contryService.getInfo(ip);
