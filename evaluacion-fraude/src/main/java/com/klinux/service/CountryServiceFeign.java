@@ -26,7 +26,7 @@ public class CountryServiceFeign implements CountryService {
 
 	@Autowired
 	private ConversionClientRest conversionFeing;
-	
+
 	@Override
 	public FraudeResponseDto getInfo(String ip) throws Exception {
 		FraudeResponseDto response = new FraudeResponseDto();
@@ -73,7 +73,7 @@ public class CountryServiceFeign implements CountryService {
 	public boolean validateIp(String ip) throws Exception {
 		boolean flag = true;
 		try {
-			
+
 		} catch (Exception e) {
 			log.error("Error: " + e.getMessage());
 		}

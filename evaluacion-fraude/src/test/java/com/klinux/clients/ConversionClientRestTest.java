@@ -14,11 +14,11 @@ class ConversionClientRestTest {
 
 	@Autowired
 	private ConversionClientRest conversionFeing;
-	
+
 	@Test
 	void testGetCurrencyDetail() {
 		String currencyCode = "COP";
-		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);		
+		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
 		assertTrue(jsonConversion.length() > 0);
 	}
 

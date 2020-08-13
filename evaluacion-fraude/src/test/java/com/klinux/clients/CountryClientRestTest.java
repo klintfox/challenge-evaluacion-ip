@@ -16,7 +16,7 @@ class CountryClientRestTest {
 
 	@Autowired
 	private CountryClientRest countryFeign;
-	
+
 	@Test
 	void testGetCountryDetail() {
 		String ip = "186.84.91.60";

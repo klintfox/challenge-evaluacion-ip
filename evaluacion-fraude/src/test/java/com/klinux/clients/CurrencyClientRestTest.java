@@ -14,7 +14,7 @@ class CurrencyClientRestTest {
 
 	@Autowired
 	private CurrencyClientRest currencyFeing;
-	
+
 	@Test
 	void testGetCurrencyByCountryName() {
 		String countryName = "Colombia";
