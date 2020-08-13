@@ -23,7 +23,7 @@ HELP.md
 .settings/
 
 #target
-*/target/**
+#*/target/**
 
 #mvn
 .mvn/
