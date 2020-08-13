@@ -37,5 +37,5 @@ El ejercicio consiste en construir una API Rest que permita:
 * Paso 2 
     - Crear contenedor con el nombre evaluacion-fraude y realizar la comunicación con el servicio evaluacion-ip
     ```sh
-    docker run -d -p 8000:8000 --env CURRENCY_EXCHANGE_SERVICE_HOST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip klinux/evaluacion-fraude:0.0.1.RELEASE
+    docker run -d -p 8000:8000 --env EVALUATE_IP_SERVICE_HOST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip klinux/evaluacion-fraude:0.0.1.RELEASE
     ```
