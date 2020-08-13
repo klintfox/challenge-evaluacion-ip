@@ -1,4 +1,4 @@
-# evaluacion-fraude
+# Ejercicio de programación
 El ejercicio consiste en construir una API Rest que permita: 
 ##### 
 - 1Dada una dirección IP, encontrar el país al que pertenece y mostrar: a. El nombre y código ISO del país b. Moneda local y su cotización actual en dólares o euros. 
