@@ -7,9 +7,6 @@
 # BlueJ files
 *.ctxt
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
@@ -19,4 +16,14 @@
 *.tar.gz
 *.rar
 
-/.settings
+#Files
+HELP.md
+
+#settings
+.settings/
+
+#target
+*/target/**
+
+#mvn
+.mvn/
