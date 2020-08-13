@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import feign.Headers;
 
 @Headers("Content-Type: application/json")
-@FeignClient(name = "${feign.namecurrency}", url = "${feign.urlCurrency}")
-public interface CurrencyClientRest {
+@FeignClient(name = "${feign.nameBlackList}", url = "${feign.urlBlackList}")
+public interface BlackListClientRest {
 
-	@GetMapping("name/{countryName}")
-	String getCurrencyByCountryName(@PathVariable(value = "countryName") String countryName);
-
+	@GetMapping("/evaluate-ip/{ip}")
+	Boolean getBlackListIp(@PathVariable(value = "ip") String ip);
 }

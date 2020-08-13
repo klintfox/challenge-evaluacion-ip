@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klinux.clients.BlackListClientRest;
 import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
@@ -26,6 +27,9 @@ public class CountryServiceFeign implements CountryService {
 
 	@Autowired
 	private ConversionClientRest conversionFeing;
+
+	@Autowired
+	private BlackListClientRest blackListFeing;
 
 	@Override
 	public FraudeResponseDto getInfo(String ip) throws Exception {
@@ -71,9 +75,9 @@ public class CountryServiceFeign implements CountryService {
 
 	@Override
 	public boolean validateIp(String ip) throws Exception {
-		boolean flag = true;
+		boolean flag = false;
 		try {
-
+			flag = blackListFeing.getBlackListIp(ip);
 		} catch (Exception e) {
 			log.error("Error: " + e.getMessage());
 		}

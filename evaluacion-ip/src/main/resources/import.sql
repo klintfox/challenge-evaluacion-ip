@@ -1,0 +1,16 @@
+INSERT INTO blacklist (ip) VALUES('186.84.91.59');
+INSERT INTO blacklist (ip) VALUES('186.84.91.61');
+INSERT INTO blacklist (ip) VALUES('186.84.91.62');
+INSERT INTO blacklist (ip) VALUES('186.84.91.63');
+INSERT INTO blacklist (ip) VALUES('186.84.91.64');
+INSERT INTO blacklist (ip) VALUES('186.84.91.65');
+INSERT INTO blacklist (ip) VALUES('186.84.91.66');
+INSERT INTO blacklist (ip) VALUES('186.84.91.67');
+INSERT INTO blacklist (ip) VALUES('186.84.91.68');
+INSERT INTO blacklist (ip) VALUES('186.84.91.69');
+INSERT INTO blacklist (ip) VALUES('186.84.91.70');
+INSERT INTO blacklist (ip) VALUES('186.84.91.71');
+INSERT INTO blacklist (ip) VALUES('186.84.91.72');
+INSERT INTO blacklist (ip) VALUES('186.84.91.73');
+INSERT INTO blacklist (ip) VALUES('186.84.91.74');
+INSERT INTO blacklist (ip) VALUES('186.84.91.75');
