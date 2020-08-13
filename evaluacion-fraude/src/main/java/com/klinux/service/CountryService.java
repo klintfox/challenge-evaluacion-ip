@@ -1,9 +1,11 @@
 package com.klinux.service;
 
-import com.klinux.dto.FraudeResponse;
+import com.klinux.dto.FraudeResponseDto;
 
 public interface CountryService {
 
-	FraudeResponse evaluar(String ip)throws Exception;
+	boolean validateIp(String ip) throws Exception;
+
+	FraudeResponseDto getInfo(String ip) throws Exception;
 
 }

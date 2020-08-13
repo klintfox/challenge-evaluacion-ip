@@ -13,7 +13,4 @@ public interface ConversionClientRest {
 	@GetMapping("/latest?access_key=b20724c8c9d6872611a0a804d8a20013&symbols={currency}")
 	String getCurrencyDetail(@PathVariable(value = "currency") String currency);
 
-//	@GetMapping("/latest?access_key=b20724c8c9d6872611a0a804d8a20013&symbols={currency}")
-//	public Conversion getCurrencyDetail(@PathVariable(value = "currency") String currency);
-
 }
