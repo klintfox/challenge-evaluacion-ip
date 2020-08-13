@@ -48,28 +48,28 @@ El ejercicio consiste en construir una API Rest que permita:
     docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip kfroman/evaluacion-fraude:0.0.1.RELEASE
     ```
 * Paso 3
-    - Para verificar el servicio usar el siguiente enlace
+    - Para verificar el servicio usar el siguiente enlace (el cambio se muestra en euros)
     ```sh
     localhost:8000/evaluate-fraud/186.84.91.60
     ```
 
 ### Lista de IP's en la Blacklist para pruebas del servicio "Evaluacion Fraude"
-- INSERT INTO blacklist (ip) VALUES('186.84.91.59');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.61');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.62');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.63');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.64');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.65');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.66');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.67');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.68');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.69');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.70');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.71');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.72');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.73');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.74');
-- INSERT INTO blacklist (ip) VALUES('186.84.91.75');
+- 186.84.91.59
+- 186.84.91.61
+- 186.84.91.62
+- 186.84.91.63
+- 186.84.91.64
+- 186.84.91.65
+- 186.84.91.66
+- 186.84.91.67
+- 186.84.91.68
+- 186.84.91.69
+- 186.84.91.70
+- 186.84.91.71
+- 186.84.91.72
+- 186.84.91.73
+- 186.84.91.74
+- 186.84.91.75
 
 <!-- 
 ### Next Steps
