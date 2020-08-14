@@ -22,7 +22,7 @@ El ejercicio consiste en construir una API Rest que permita:
 ### Docker
 ##### Servicio Evaluacion Ip:
 * Paso 1
-    - - Ubicarse en la carpeta del proyecto "evaluacion-ip"
+    - Ubicarse en la carpeta del proyecto "evaluacion-ip"
 * Paso 2
     - Creación de la imagen
     ```sh
