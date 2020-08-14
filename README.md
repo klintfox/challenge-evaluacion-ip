@@ -22,21 +22,25 @@ El ejercicio consiste en construir una API Rest que permita:
 ### Docker
 ##### Servicio Evaluacion Ip:
 * Paso 1
+    - - Ubicarse en la carpeta del proyecto "evaluacion-ip"
+* Paso 2
     - Creación de la imagen
     ```sh
     docker build -t kfroman/evaluacion-ip:0.0.1.RELEASE .
     ```
-* Paso 2 
+* Paso 3 
     - Creación del contenedor
     ```sh
     docker run -d -p 8001:8001 --name=evaluacion-ip kfroman/evaluacion-ip:0.0.1.RELEASE
     ```
-* Paso 3
+* Paso 4
     - Para verificar el servicio usar el siguiente enlace
     ```sh
     localhost:8001/evaluate-ip/186.84.91.63
     ```
 ##### Servicio Evaluacion Fraude:
+* Paso 1
+    - Ubicarse en la carpeta del proyecto "evaluacion-fraude"
 * Paso 1
     - Creación de la imagen
     ```sh
