@@ -14,7 +14,7 @@ services:
       - "8000:8000"
     restart: always
     environment:
-      CURRENCY_EXCHANGE_SERVICE_HOST: http://evaluacion-ip
+      WS_BLACK_LIST: http://evaluacion-ip
     depends_on:
       - evaluacion-ip
     networks:

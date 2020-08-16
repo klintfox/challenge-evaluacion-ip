@@ -18,7 +18,16 @@ El ejercicio consiste en construir una API Rest que permita:
 - La aplicación no deberá perder su estado ante un shutdown.
 - Además de funcionamiento, prestar atención al estilo y calidad del código fuente.
 
-## Solución 
+## Solución 1
+### Docker Compose
+* Paso 1
+    - Clonar el proyecto y ubicarse en la misma ruta donde se ubica el archivo "docker-compose.yml"
+* Paso 2
+    - Ejecutar la siguiente instrucción
+    ```sh
+    docker-compose up
+    ```
+## Solución 2
 ### Docker
 ##### Servicio Evaluacion Ip:
 * Paso 1
@@ -57,6 +66,13 @@ El ejercicio consiste en construir una API Rest que permita:
     localhost:8000/evaluate-fraud/186.84.91.60
     ```
 
+## Pruebas
+
+### Lista de Ips que retorna la información solicitada y la equivalencia en moneda local de 1 euro
+- 186.84.91.60 (Colombia)
+- 1.1.1.1 (Australia)
+- 190.5.7.12 (Argentina)
+
 ### Lista de IP's en la Blacklist para pruebas del servicio "Evaluacion Fraude"
 - 186.84.91.59
 - 186.84.91.61
@@ -74,30 +90,3 @@ El ejercicio consiste en construir una API Rest que permita:
 - 186.84.91.73
 - 186.84.91.74
 - 186.84.91.75
-
-<!-- 
-### Next Steps
-### DockerHub
-#### Subir release de la imagen evaluacion-ip
-    - Ejecutamos el siguiente comando
-     ```sh
-     docker push kfroman/evaluacion-ip:0.0.1.RELEASE
-     ```
-#### Subir release de la imagen evaluacion-fraude
-    - Ejecutamos el siguiente comando
-     ```sh
-     docker push kfroman/evaluacion-fraude:0.0.1.RELEASE
-     ```
-
-### Docker Compose
- * Paso 1
-    - Clonamos el repositorio o lo descargamos
- * Paso 2
-    - Abrimos la consola de comandos y nos posicionamos en la raiz del proyecto clonado
-* Paso 3
-    -Verificamos que exista el archivo docker.compose.yml
-* Paso 4
-    - Ejecutamos el siguiente comando
-    ```sh
-    docker-compose up -d
-    ``` -->
