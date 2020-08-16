@@ -27,6 +27,11 @@ El ejercicio consiste en construir una API Rest que permita:
     ```sh
     docker-compose up
     ```
+* Paso 3
+    - Para realizar una prueba utilizar el siguiente enlace (se puede utiliaza las ip Pruebas al final de la documentación para comprobar las respuestas)
+    ```sh
+    localhost:8000/evaluate-fraud/186.84.91.60
+    ```
 ## Solución 2
 ### Docker
 ##### Servicio Evaluacion Ip:
