@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.klinux.dto.Country;
 import com.klinux.dto.FraudeResponseDto;
 import com.klinux.exception.FraudeResponseNotFoundException;
+import com.klinux.functions.Constantes;
 import com.klinux.service.CountryService;
 
 @RefreshScope
@@ -32,10 +33,10 @@ public class EvaluacionFraudeController {
 	public FraudeResponseDto evaluacionFraude(@PathVariable String ip) throws FraudeResponseNotFoundException {
 		log.info("Start Time: " + new Date().getTime() / 1000);
 		FraudeResponseDto response = new FraudeResponseDto();
-		boolean flag = false;
+		String flag = "";
 		try {
 			flag = contryService.validateIp(ip);
-			if (!flag) {
+			if (flag.equals(Constantes.ENABLED)) {
 				// 1 get country detail
 				Country country = contryService.getCountryDetail(ip);
 				if (country != null) {
@@ -57,18 +58,24 @@ public class EvaluacionFraudeController {
 							JsonNode jsonNodeConversion = mapperConversion.readTree(jsonConversion);
 							String rate = jsonNodeConversion.get("rates").get(currencyCode).asText();
 							response.setCurrencyValue(rate);
-							response.setMessage("OK");
+							response.setEstado("OK");
 						} else {
+							response.setEstado("FALLIDO");
 							response.setMessage("Error with the WS_CONVERSION");
 						}
 					} else {
+						response.setEstado("FALLIDO");
 						response.setMessage("Error with the service: WS_CURRENCY");
 					}
 				} else {
+					response.setEstado("FALLIDO");
 					response.setMessage("Error with the service WS_COUNTRY");
 				}
+			} else if (flag.equals(Constantes.BANNED)) {
+				response.setMessage("Banned");
+				return response;
 			} else {
-				log.info("IP Baneada: " + ip);
+				response.setEstado("No es una ip correcta");
 				return response;
 			}
 		} catch (Exception e) {

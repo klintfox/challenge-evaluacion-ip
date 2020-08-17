@@ -11,5 +11,5 @@ import feign.Headers;
 public interface BlackListClientRest {
 
 	@GetMapping("/evaluate-ip/{ip}")
-	Boolean getBlackListIp(@PathVariable(value = "ip") String ip);
+	String getBlackListIp(@PathVariable(value = "ip") String ip);
 }

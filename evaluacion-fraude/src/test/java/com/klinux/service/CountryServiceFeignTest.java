@@ -35,8 +35,8 @@ class CountryServiceFeignTest {
 	@DisplayName("testValidateIpInBlackList")
 	void testValidateIp() {
 		String ip = "186.84.91.61";
-		boolean flag = blackListFeing.getBlackListIp(ip);
-		assertTrue(flag);
+		String estado = blackListFeing.getBlackListIp(ip);
+		assertTrue(estado.length() > 0);
 	}
 
 	@Test

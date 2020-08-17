@@ -4,7 +4,7 @@ import com.klinux.dto.Country;
 
 public interface CountryService {
 
-	boolean validateIp(String ip) throws Exception;
+	String validateIp(String ip) throws Exception;
 
 	Country getCountryDetail(String ip)throws Exception;
 

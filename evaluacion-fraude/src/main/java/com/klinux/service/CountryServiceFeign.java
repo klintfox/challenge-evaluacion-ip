@@ -1,5 +1,7 @@
 package com.klinux.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +10,12 @@ import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
 import com.klinux.dto.Country;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service("serviceFeign")
 public class CountryServiceFeign implements CountryService {
+
+	private static Logger log = LoggerFactory.getLogger(CountryServiceFeign.class);
 
 	@Autowired
 	private CountryClientRest countryFeign;
@@ -24,33 +29,51 @@ public class CountryServiceFeign implements CountryService {
 	@Autowired
 	private BlackListClientRest blackListFeing;
 
-	public boolean validateIp(String ip) {
-		boolean flag = false;
-		flag = blackListFeing.getBlackListIp(ip);
-		return flag;
+	@HystrixCommand(fallbackMethod = "validateIpDefault")
+	public String validateIp(String ip) throws Exception {
+		String estado = "";
+		estado = blackListFeing.getBlackListIp(ip);
+		return estado;
 	}
 
-	public Country getCountryDetail(String ip) {
+	@HystrixCommand(fallbackMethod = "getCountryDetailDefault")
+	public Country getCountryDetail(String ip) throws Exception {
 		Country country = countryFeign.getCountryDetail(ip);
 		return country;
 	}
 
-	public String getCurrencyByCountryName(String countryName) {
+	@HystrixCommand(fallbackMethod = "getCurrencyByCountryNameDefault")
+	public String getCurrencyByCountryName(String countryName) throws Exception {
 		String jsonCurrency = currencyFeing.getCurrencyByCountryName(countryName);
 		return jsonCurrency;
 	}
 
-	public String getCurrencyDetail(String currencyCode) {
-		String jsonConversion = "";
-		try {
-			jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
-			if (jsonConversion == null) {
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@HystrixCommand(fallbackMethod = "getCurrencyDetailDefault")
+	public String getCurrencyDetail(String currencyCode) throws Exception {
+		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
 		return jsonConversion;
+	}
+
+	public String validateIpDefault(String ip) {
+		log.error("Using Hystrix in validateIpDefault");
+		return new String("ERROR");
+	}
+
+	public Country getCountryDetailDefault(String ip) {
+		log.error("Using Hystrix in getCountryDetailDefault");
+		return new Country();
+	}
+
+	public String getCurrencyByCountryNameDefault(String countryName) {
+		log.error("Using Hystrix in getCurrencyByCountryNameDefault");
+		String jsonCurrencyByCountryName = null;
+		return jsonCurrencyByCountryName;
+	}
+
+	public String getCurrencyDetailDefault(String currencyCode) {
+		log.error("Using Hystrix in getCurrencyDetailDefault");
+		String jsonCurrencyDetail = null;
+		return jsonCurrencyDetail;
 	}
 
 }

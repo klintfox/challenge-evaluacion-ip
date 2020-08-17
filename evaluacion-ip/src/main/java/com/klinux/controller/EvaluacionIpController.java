@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinux.functions.Constantes;
+import com.klinux.functions.Functions;
 import com.klinux.model.BlackList;
 import com.klinux.repository.EvaluacionIpRepository;
 
@@ -19,18 +21,25 @@ public class EvaluacionIpController {
 	private EvaluacionIpRepository evaluacionRepository;
 
 	@GetMapping("/evaluate-ip/{ip}")
-	public Boolean evaluateIp(@PathVariable String ip) {
-		log.info("Start: ");
+	public String evaluateIp(@PathVariable String ip) {
+		String estado = "";
 		boolean flag = false;
 		try {
-			BlackList bl = evaluacionRepository.findByIp(ip);
-			if (bl != null) {
-				flag = true;
+			flag = Functions.validIP(ip);
+			if (flag) {
+				BlackList bl = evaluacionRepository.findByIp(ip);
+				if (bl != null) {
+					estado = Constantes.BANNED;
+				} else {
+					estado = Constantes.ENABLED;
+				}
+			} else {
+				estado = Constantes.ERROR;
 			}
 		} catch (Exception e) {
-			log.error("Error" + e.getMessage());
+			log.error("Error: " + e.getMessage());
 		}
-		return flag;
+		return estado;
 	}
 
 }

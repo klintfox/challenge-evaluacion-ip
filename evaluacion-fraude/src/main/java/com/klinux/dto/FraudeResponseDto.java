@@ -6,11 +6,20 @@ public class FraudeResponseDto implements Serializable {
 
 	private static final long serialVersionUID = -3602790210316764323L;
 
+	private String estado;
 	private String message;
 	private String countryName;
 	private String isoName;
 	private String currencyName;
 	private String currencyValue;
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	public String getMessage() {
 		return message;

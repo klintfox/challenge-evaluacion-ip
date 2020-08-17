@@ -1,5 +1,5 @@
 package com.klinux.service;
 
-public interface EvaluacionIpService {
+public interface EvaluacionIpService {	
 
 }
