@@ -9,6 +9,11 @@ El ejercicio consiste en construir una API Rest que permita:
 ##### Observaciones
 - Tener en cuenta que el punto 1 puede recibir fluctuaciones agresivas de tráfico.
 
+- Para obtener la información, pueden utilizarse las siguientes APIs públicas:
+   * Geolocalización de IPs: https://ip2country.info/
+   * Información de paises: http://restcountries.eu/
+   * Información sobre monedas: http//fixer.io/
+
 ##### Consideraciones:
 - Se solicita una solución con un diseño OOP.
 - Preferentemente en Java, Kotlin o Groovy.
