@@ -23,8 +23,7 @@ El ejercicio consiste en construir una API Rest que permita:
 - La aplicación no deberá perder su estado ante un shutdown.
 - Además de funcionamiento, prestar atención al estilo y calidad del código fuente.
 
-## Solución 1
-### Docker Compose
+## Solución con Docker Compose
 * Paso 1
     - Clonar el proyecto y ubicarse en la misma ruta donde se ubica el archivo "docker-compose.yml"
 * Paso 2
@@ -33,12 +32,11 @@ El ejercicio consiste en construir una API Rest que permita:
     docker-compose up
     ```
 * Paso 3
-    - Para realizar una prueba utilizar el siguiente enlace (se puede utiliaza las ip Pruebas al final de la documentación para comprobar las respuestas)
+    - En Postman agregar a la siguienteurl una dirección ip.
     ```sh
-    localhost:8000/evaluate-fraud/186.84.91.60
+    localhost:8000/evaluate-fraud/{direccionIp}
     ```
-## Solución 2
-### Docker
+### Solución con Docker
 ##### Servicio Evaluacion Ip:
 * Paso 1
     - Ubicarse en la carpeta del proyecto "evaluacion-ip"
@@ -78,7 +76,7 @@ El ejercicio consiste en construir una API Rest que permita:
 
 ## Pruebas
 
-### Lista de Ips que retorna la información solicitada y la equivalencia en moneda local de 1 euro
+### Algunas Ips que retornan la información del challenge.
 - 186.84.91.60 (Colombia)
 - 1.1.1.1 (Australia)
 - 190.5.7.12 (Argentina)
