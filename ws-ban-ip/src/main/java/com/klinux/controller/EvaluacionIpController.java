@@ -20,7 +20,7 @@ public class EvaluacionIpController {
 	@Autowired
 	private EvaluacionIpRepository evaluacionRepository;
 
-	@GetMapping("/evaluate-ip/{ip}")
+	@GetMapping("/ban-ip/{ip}")
 	public String evaluateIp(@PathVariable String ip) {
 		String estado = "";
 		boolean flag = false;

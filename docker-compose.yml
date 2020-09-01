@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  evaluacion-ip:
-    image: kfroman/evaluacion-ip:0.0.1.RELEASE
+  ws-ban-ip:
+    image: kfroman/ws-ban-ip:0.0.1.RELEASE
     ports:
       - "8001:8001"
     restart: always
@@ -14,9 +14,9 @@ services:
       - "8000:8000"
     restart: always
     environment:
-      WS_BLACK_LIST: http://evaluacion-ip
+      WS_BLACK_LIST: http://ws-ban-ip
     depends_on:
-      - evaluacion-ip
+      - ws-ban-ip
     networks:
       - evaluate-compose-network
   
