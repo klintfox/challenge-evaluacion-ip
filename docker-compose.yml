@@ -8,8 +8,8 @@ services:
     networks:
       - evaluate-compose-network
 
-  evaluacion-fraude:
-    image: kfroman/evaluacion-fraude:0.0.1.RELEASE
+  ws-info-ip:
+    image: kfroman/ws-info-ip:0.0.1.RELEASE
     ports:
       - "8000:8000"
     restart: always

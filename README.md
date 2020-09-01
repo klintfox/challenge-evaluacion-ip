@@ -37,36 +37,36 @@ El ejercicio consiste en construir una API Rest que permita:
     localhost:8000/evaluate-fraud/{direccionIp}
     ```
 ### Solución con Docker
-##### Servicio Evaluacion Ip:
+##### Servicio Ban Ip:
 * Paso 1
-    - Ubicarse en la carpeta del proyecto "evaluacion-ip"
+    - Ubicarse en la carpeta del proyecto "ban-ip"
 * Paso 2
     - Creación de la imagen
     ```sh
-    docker build -t kfroman/evaluacion-ip:0.0.1.RELEASE .
+    docker build -t kfroman/ban-ip:0.0.1.RELEASE .
     ```
 * Paso 3 
     - Creación del contenedor
     ```sh
-    docker run -d -p 8001:8001 --name=evaluacion-ip kfroman/evaluacion-ip:0.0.1.RELEASE
+    docker run -d -p 8001:8001 --name=ban-ip kfroman/ban-ip:0.0.1.RELEASE
     ```
 * Paso 4
     - Para verificar el servicio usar el siguiente enlace
     ```sh
-    localhost:8001/evaluate-ip/186.84.91.63
+    localhost:8001/ban-ip/{ip}
     ```
-##### Servicio Evaluacion Fraude:
+##### Servicio Evaluate Ip:
 * Paso 1
-    - Ubicarse en la carpeta del proyecto "evaluacion-fraude"
+    - Ubicarse en la carpeta del proyecto "ws-info-ip"
 * Paso 1
     - Creación de la imagen
     ```sh
-    docker build -t kfroman/evaluacion-fraude:0.0.1.RELEASE .
+    docker build -t kfroman/ws-info-ip:0.0.1.RELEASE .
     ```
 * Paso 2 
     - Creación del contenedor
     ```sh
-    docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://evaluacion-ip --name=evaluacion-fraude --link evaluacion-ip kfroman/evaluacion-fraude:0.0.1.RELEASE
+    docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://ban-ip --name=ws-info-ip --link ban-ip kfroman/ws-info-ip:0.0.1.RELEASE
     ```
 * Paso 3
     - Para verificar el servicio usar el siguiente enlace (el cambio se muestra en euros)
