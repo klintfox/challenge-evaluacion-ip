@@ -25,7 +25,7 @@ public class EvaluacionIpController {
 		String estado = "";
 		boolean flag = false;
 		try {
-			flag = Functions.validIP(ip);
+			flag = Functions.validateIp(ip);
 			if (flag) {
 				BlackList bl = evaluacionRepository.findByIp(ip);
 				if (bl != null) {

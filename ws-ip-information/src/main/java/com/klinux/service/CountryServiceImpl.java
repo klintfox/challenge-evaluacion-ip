@@ -11,9 +11,9 @@ import com.klinux.clients.BlackListClientRest;
 import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
+import com.klinux.constants.Constantes;
 import com.klinux.dto.Country;
 import com.klinux.dto.FraudeResponseDto;
-import com.klinux.functions.Constantes;
 
 @Service
 public class CountryServiceImpl implements CountryService {

@@ -1,4 +1,4 @@
-package com.klinux.functions;
+package com.klinux.constants;
 
 public class Constantes {
 

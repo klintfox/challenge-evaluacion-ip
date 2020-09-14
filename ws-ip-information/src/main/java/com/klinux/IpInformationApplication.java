@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication
 @EnableCircuitBreaker
-public class EvaluacionFraudeApplication {
+public class IpInformationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EvaluacionFraudeApplication.class, args);
+		SpringApplication.run(IpInformationApplication.class, args);
 	}
 
 }

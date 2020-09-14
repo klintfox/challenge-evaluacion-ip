@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.klinux</groupId>
-	<artifactId>ws-info-ip</artifactId>
+	<artifactId>ws-ip-information</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>evaluacion-fraude</name>
+	<name>ws-ip-information</name>
 	<description>Get information about an Ip</description>
 
 	<properties>

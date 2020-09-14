@@ -55,18 +55,18 @@ El ejercicio consiste en construir una API Rest que permita:
     ```sh
     localhost:8001/ban-ip/{ip}
     ```
-##### Servicio Evaluate Ip:
+##### Servicio Ip Information:
 * Paso 1
-    - Ubicarse en la carpeta del proyecto "ws-info-ip"
+    - Ubicarse en la carpeta del proyecto "ws-ip-information"
 * Paso 1
     - Creación de la imagen
     ```sh
-    docker build -t kfroman/ws-info-ip:0.0.1.RELEASE .
+    docker build -t kfroman/ws-ip-information:0.0.1.RELEASE .
     ```
 * Paso 2 
     - Creación del contenedor
     ```sh
-    docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://ban-ip --name=ws-info-ip --link ban-ip kfroman/ws-info-ip:0.0.1.RELEASE
+    docker run -d -p 8000:8000 --env WS_BLACK_LIST=http://ban-ip --name=ws-ip-information --link ban-ip kfroman/ws-ip-information:0.0.1.RELEASE
     ```
 * Paso 3
     - Para verificar el servicio usar el siguiente enlace (el cambio se muestra en euros)

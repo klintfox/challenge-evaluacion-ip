@@ -23,7 +23,7 @@ public class EvaluacionFraudeController {
 	@Autowired
 	private CountryService contryService;
 
-	@GetMapping("/evaluate-fraud/{ip}")
+	@GetMapping("/ip-information/{ip}")
 	public FraudeResponseDto evaluacionFraude(@PathVariable String ip) throws FraudeResponseNotFoundException {
 		log.info("Start Time: " + new Date().getTime() / 1000);
 		FraudeResponseDto response = new FraudeResponseDto();
