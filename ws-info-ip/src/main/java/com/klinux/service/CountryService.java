@@ -4,6 +4,6 @@ import com.klinux.dto.FraudeResponseDto;
 
 public interface CountryService {
 
-	FraudeResponseDto evaluateIp(String ip) throws Exception;
+	FraudeResponseDto infoIp(String ip) throws Exception;
 
 }

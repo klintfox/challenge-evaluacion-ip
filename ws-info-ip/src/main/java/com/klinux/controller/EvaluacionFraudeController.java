@@ -28,7 +28,7 @@ public class EvaluacionFraudeController {
 		log.info("Start Time: " + new Date().getTime() / 1000);
 		FraudeResponseDto response = new FraudeResponseDto();
 		try {
-			response = contryService.evaluateIp(ip);
+			response = contryService.infoIp(ip);
 		} catch (Exception e) {
 			log.error("Error EvaluacionFraudeController", e.getMessage());
 		}

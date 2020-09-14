@@ -33,7 +33,7 @@ public class CountryServiceImpl implements CountryService {
 	private BlackListClientRest blackListFeing;
 
 	@Override
-	public FraudeResponseDto evaluateIp(String ip) throws Exception {
+	public FraudeResponseDto infoIp(String ip) throws Exception {
 		FraudeResponseDto response = new FraudeResponseDto();
 		String typeIp = "";
 		try {
