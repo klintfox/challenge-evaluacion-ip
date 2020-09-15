@@ -1,9 +1,11 @@
 package com.klinux.service;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.klinux.dto.FraudeResponseDto;
 
 public interface CountryService {
 
-	FraudeResponseDto infoIp(String ip) throws Exception;
+	CompletableFuture<FraudeResponseDto> getIpInformation(String ip) throws Exception;
 
 }

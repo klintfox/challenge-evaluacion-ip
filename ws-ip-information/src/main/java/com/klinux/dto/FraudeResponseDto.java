@@ -12,7 +12,7 @@ public class FraudeResponseDto implements Serializable {
 	private String isoName;
 	private String currencyName;
 	private String currencyValue;
-	
+
 	public String getEstado() {
 		return estado;
 	}

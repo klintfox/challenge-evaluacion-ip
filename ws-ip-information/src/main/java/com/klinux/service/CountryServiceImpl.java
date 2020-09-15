@@ -1,8 +1,11 @@
 package com.klinux.service;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -32,8 +35,9 @@ public class CountryServiceImpl implements CountryService {
 	@Autowired
 	private BlackListClientRest blackListFeing;
 
-	@Override
-	public FraudeResponseDto infoIp(String ip) throws Exception {
+	@Async
+	public CompletableFuture<FraudeResponseDto> getIpInformation(String ip) throws Exception {
+		System.out.println("Name: " + Thread.currentThread().getName());
 		FraudeResponseDto response = new FraudeResponseDto();
 		String typeIp = "";
 		try {
@@ -55,34 +59,34 @@ public class CountryServiceImpl implements CountryService {
 							JsonNode jsonNodeConversion = mapperConversion.readTree(jsonConversion);
 							String rate = jsonNodeConversion.get("rates").get(currencyCode).asText();
 							response.setCurrencyValue(rate);
-							response.setEstado(Constantes.STATUS_RESPONSE_OK);
+							response.setEstado(Constantes.STATUS_MESSAGE_SUCCESS);
 						} else {
-							response.setEstado(Constantes.STATUS_RESPONSE_FAILED);
+							response.setEstado(Constantes.STATUS_MESSAGE_FAIL);
 							response.setMessage("Error with the WS_CONVERSION");
 						}
 					} else {
-						response.setEstado(Constantes.STATUS_RESPONSE_FAILED);
+						response.setEstado(Constantes.STATUS_MESSAGE_FAIL);
 						response.setMessage("Error with the service: WS_CURRENCY");
 					}
 				} else {
-					response.setEstado(Constantes.STATUS_RESPONSE_FAILED);
+					response.setEstado(Constantes.STATUS_MESSAGE_FAIL);
 					response.setMessage("Error with the service WS_COUNTRY");
 				}
 			} else if (typeIp.equals(Constantes.BANNED)) {
-				response.setMessage("Banned");
+				response.setEstado(Constantes.STATUS_MESSAGE_FAIL);
+				response.setMessage("Error with the service: WS_BAN_IP");
 			} else {
-				response.setEstado(Constantes.ERROR);
+				response.setEstado(Constantes.STATUS_MESSAGE_FAIL);
+				response.setMessage(Constantes.ERROR);
 			}
 		} catch (Exception e) {
-			log.error("Error en CountryServiceImpl.evaluateIp", e.getMessage());
+			log.error(new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage());
 		}
-		return response;
+		return CompletableFuture.completedFuture(response);
 	}
 
 	private String validateIp(String ip) {
-		String estado = "";
-		estado = blackListFeing.getBlackListIp(ip);
-		return estado;
+		return blackListFeing.getBlackListIp(ip);
 	}
 
 	private Country countryDetail(String ip) {

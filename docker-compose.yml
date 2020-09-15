@@ -8,8 +8,8 @@ services:
     networks:
       - evaluate-compose-network
 
-  ws-info-ip:
-    image: kfroman/ws-info-ip:0.0.1.RELEASE
+  ws-ip-information:
+    image: kfroman/ws-ip-information:0.0.1.RELEASE
     ports:
       - "8000:8000"
     restart: always

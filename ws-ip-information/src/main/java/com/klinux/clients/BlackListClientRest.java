@@ -10,6 +10,6 @@ import feign.Headers;
 @FeignClient(name = "${feign.nameBlackList}", url = "${WS_BLACK_LIST:http://localhost}:8001")
 public interface BlackListClientRest {
 
-	@GetMapping("/evaluate-ip/{ip}")
+	@GetMapping("/ban-ip/{ip}")
 	String getBlackListIp(@PathVariable(value = "ip") String ip);
 }

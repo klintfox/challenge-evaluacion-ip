@@ -23,7 +23,7 @@ El ejercicio consiste en construir una API Rest que permita:
 - La aplicación no deberá perder su estado ante un shutdown.
 - Además de funcionamiento, prestar atención al estilo y calidad del código fuente.
 
-## Solución con Docker Compose
+## Solución con Docker Compose y DockerHub
 * Paso 1
     - Clonar el proyecto y ubicarse en la misma ruta donde se ubica el archivo "docker-compose.yml"
 * Paso 2
@@ -34,7 +34,7 @@ El ejercicio consiste en construir una API Rest que permita:
 * Paso 3
     - En Postman agregar a la siguienteurl una dirección ip.
     ```sh
-    localhost:8000/evaluate-fraud/{direccionIp}
+    localhost:8000/ip-information/{direccionIp}
     ```
 ### Solución con Docker
 ##### Servicio Ban Ip:
@@ -71,7 +71,7 @@ El ejercicio consiste en construir una API Rest que permita:
 * Paso 3
     - Para verificar el servicio usar el siguiente enlace (el cambio se muestra en euros)
     ```sh
-    localhost:8000/evaluate-fraud/186.84.91.60
+    localhost:8000/ip-information/186.84.91.60
     ```
 
 ## Pruebas
