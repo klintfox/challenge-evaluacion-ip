@@ -19,8 +19,7 @@ class CountryClientRestTest {
 
 	@Test
 	void testGetCountryDetail() {
-		String ip = "186.84.91.60";
-		CountryDto country = countryFeign.getCountryDetail(ip);
+		CountryDto country = countryFeign.getCountryDetail("186.84.91.60");
 		assertTrue(country.toString().length() > 0);
 	}
 

@@ -1,0 +1,5 @@
+projectKey=ws-ip-information
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/ws-ip-information
+ceTaskId=AXSZK9ud62azjnH3Cm4P
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXSZK9ud62azjnH3Cm4P

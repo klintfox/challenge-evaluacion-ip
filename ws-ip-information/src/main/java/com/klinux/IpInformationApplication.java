@@ -8,6 +8,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class IpInformationApplication {
 
+	private IpInformationApplication() {
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(IpInformationApplication.class, args);
 	}

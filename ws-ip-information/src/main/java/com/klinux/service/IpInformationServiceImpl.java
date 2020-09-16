@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.klinux.clients.BanIpClientRest;
@@ -38,28 +40,28 @@ public class IpInformationServiceImpl implements IpInformationService {
 	private IpInformationDto response = new IpInformationDto();
 
 	@Async
-	public CompletableFuture<IpInformationDto> getIpInformation(String ip) throws Exception {
-		System.out.println("Name: " + Thread.currentThread().getName());
+	public CompletableFuture<IpInformationDto> getIpInformation(String ip) {
+		log.info("Name: " + Thread.currentThread().getName());
 		try {
 			requestIpTypeFromBanIpClient(ip);
 		} catch (Exception e) {
 			log.error(printError(e));
 		}
-		System.out.println(response.toString());
+		log.info(response.toString());
 		return CompletableFuture.completedFuture(response);
 	}
 
-	private void requestIpTypeFromBanIpClient(String ip) throws Exception {
+	private void requestIpTypeFromBanIpClient(String ip) throws JsonMappingException, JsonProcessingException {
 		String typeIp = banIpClient.getIpStatus(ip);
-		if(typeIp != null) {
+		if (typeIp != null) {
 			evaluateTypeIp(typeIp, ip);
-		}else {
+		} else {
 			response.setEstado(Constantes.STATUS_FAIL);
 			response.setMessage(Constantes.WS_BAN_IP_NOT_FOUND);
-		}		
+		}
 	}
 
-	private void evaluateTypeIp(String typeIp, String ip) throws Exception {
+	private void evaluateTypeIp(String typeIp, String ip) throws JsonMappingException, JsonProcessingException {
 		if (typeIp.equals(Constantes.ENABLED)) {
 			requestFromCountryDetailClient(ip);
 		}
@@ -69,7 +71,7 @@ public class IpInformationServiceImpl implements IpInformationService {
 		}
 	}
 
-	private CountryDto requestFromCountryDetailClient(String ip) throws Exception {
+	private void requestFromCountryDetailClient(String ip) throws JsonMappingException, JsonProcessingException {
 		CountryDto country = countryClient.getCountryDetail(ip);
 		if (country != null) {
 			response.setCountryName(country.getCountryName());
@@ -79,10 +81,9 @@ public class IpInformationServiceImpl implements IpInformationService {
 			response.setEstado(Constantes.STATUS_FAIL);
 			response.setMessage(Constantes.WS_COUNTRY_NOT_FOUND);
 		}
-		return country;
 	}
 
-	private void requestCurrencyByCountryName(String countryName) throws Exception {
+	private void requestCurrencyByCountryName(String countryName) throws JsonMappingException, JsonProcessingException {
 		String jsonCurrency = currencyClient.getCurrencyByCountryName(countryName);
 		if (jsonCurrency != null) {
 			ObjectMapper mapper = new ObjectMapper();
@@ -94,10 +95,9 @@ public class IpInformationServiceImpl implements IpInformationService {
 			response.setEstado(Constantes.STATUS_FAIL);
 			response.setMessage(Constantes.WS_CURRENCY_NOT_FOUND);
 		}
-
 	}
 
-	private void requestCurrencyDetail(String currencyCode) throws Exception {
+	private void requestCurrencyDetail(String currencyCode) throws JsonMappingException, JsonProcessingException {
 		String jsonConversion = conversionClient.getCurrencyDetail(currencyCode);
 		if (jsonConversion != null) {
 			ObjectMapper mapperConversion = new ObjectMapper();
@@ -112,6 +112,6 @@ public class IpInformationServiceImpl implements IpInformationService {
 	}
 
 	public String printError(Exception e) {
-		return (new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage());
+		return new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage();
 	}
 }

@@ -11,7 +11,7 @@ public class CountryDto implements Serializable {
 	private String countryName;
 	private String countryEmoji;
 
-	public CountryDto() {
+	private CountryDto() {
 	}
 
 	public String getCountryCode() {

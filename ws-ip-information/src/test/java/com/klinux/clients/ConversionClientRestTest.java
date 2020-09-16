@@ -16,9 +16,8 @@ class ConversionClientRestTest {
 	private ConversionClientRest conversionFeing;
 
 	@Test
-	void testGetCurrencyDetail() {
-		String currencyCode = "COP";
-		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
+	void testGetCurrencyDetail() {		
+		String jsonConversion = conversionFeing.getCurrencyDetail("COP");
 		assertTrue(jsonConversion.length() > 0);
 	}
 
