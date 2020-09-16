@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.klinux.dto.Country;
+import com.klinux.dto.CountryDto;
 
 import feign.Headers;
 
@@ -13,5 +13,5 @@ import feign.Headers;
 public interface CountryClientRest {
 
 	@GetMapping("ip?{ip}")
-	Country getCountryDetail(@PathVariable(value = "ip") String ip);	
+	CountryDto getCountryDetail(@PathVariable(value = "ip") String ip);	
 }

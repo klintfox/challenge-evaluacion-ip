@@ -9,34 +9,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.klinux.clients.BlackListClientRest;
+import com.klinux.clients.BanIpClientRest;
 import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
-import com.klinux.dto.Country;
+import com.klinux.dto.CountryDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class CountryServiceFeignTest {
 
 	@Autowired
-	private BlackListClientRest blackListFeing;
+	private BanIpClientRest banIpClient;
 
 	@Autowired
-	private CountryClientRest countryFeign;
+	private CountryClientRest countryClient;
 
 	@Autowired
-	private CurrencyClientRest currencyFeing;
+	private CurrencyClientRest currencyClient;
 
 	@Autowired
-	private ConversionClientRest conversionFeing;
+	private ConversionClientRest conversionClient;
 
 //	@Test
 	@DisplayName("testValidateIpInBlackList")
 	void testValidateIp() {
 		String ip = "186.84.91.61";
 		String estado = null;
-		estado = blackListFeing.getBlackListIp(ip);
+		estado = banIpClient.getIpStatus(ip);
 		assertTrue(estado.length() > 0);
 	}
 
@@ -44,7 +44,7 @@ class CountryServiceFeignTest {
 	@DisplayName("testCountryDetail")
 	void testGetCountryDetail() {
 		String ip = "186.84.91.60";
-		Country country = countryFeign.getCountryDetail(ip);
+		CountryDto country = countryClient.getCountryDetail(ip);
 		assertTrue(country.toString().length() > 0);
 	}
 
@@ -52,7 +52,7 @@ class CountryServiceFeignTest {
 	@DisplayName("testCurrencyByCountryName")
 	void testGetCurrencyByCountryName() {
 		String countryName = "Colombia";
-		String jsonCurrency = currencyFeing.getCurrencyByCountryName(countryName);
+		String jsonCurrency = currencyClient.getCurrencyByCountryName(countryName);
 		assertTrue(jsonCurrency.length() > 0);
 	}
 
@@ -60,7 +60,7 @@ class CountryServiceFeignTest {
 	@DisplayName("testCurrencyDetail")
 	void testGetCurrencyDetail() {
 		String currencyCode = "COP";
-		String jsonConversion = conversionFeing.getCurrencyDetail(currencyCode);
+		String jsonConversion = conversionClient.getCurrencyDetail(currencyCode);
 		assertTrue(jsonConversion.length() > 0);
 	}
 

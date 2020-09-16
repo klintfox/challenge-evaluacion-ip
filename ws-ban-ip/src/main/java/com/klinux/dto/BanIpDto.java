@@ -2,7 +2,7 @@ package com.klinux.dto;
 
 import java.io.Serializable;
 
-public class EvaluacionIpDto implements Serializable {
+public class BanIpDto implements Serializable {
 
 	private static final long serialVersionUID = 8001886904291264184L;
 
@@ -10,10 +10,10 @@ public class EvaluacionIpDto implements Serializable {
 	private String message;
 	private boolean flag;
 
-	public EvaluacionIpDto() {
+	public BanIpDto() {
 	}
 
-	public EvaluacionIpDto(String estado, String message, boolean flag) {
+	public BanIpDto(String estado, String message, boolean flag) {
 		super();
 		this.estado = estado;
 		this.message = message;

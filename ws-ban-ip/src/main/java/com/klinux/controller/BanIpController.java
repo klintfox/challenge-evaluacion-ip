@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.klinux.functions.Constantes;
 import com.klinux.functions.Functions;
 import com.klinux.model.BlackList;
-import com.klinux.repository.EvaluacionIpRepository;
+import com.klinux.repository.BanIpRepository;
 
 @RestController
-public class EvaluacionIpController {
+public class BanIpController {
 
-	private static Logger log = LoggerFactory.getLogger(EvaluacionIpController.class);
+	private static Logger log = LoggerFactory.getLogger(BanIpController.class);
 
 	@Autowired
-	private EvaluacionIpRepository evaluacionRepository;
+	private BanIpRepository evaluacionRepository;
 
 	@GetMapping("/ban-ip/{ip}")
 	public String evaluateIp(@PathVariable String ip) {

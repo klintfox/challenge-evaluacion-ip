@@ -9,23 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.klinux.dto.FraudeResponseDto;
-import com.klinux.service.CountryService;
+import com.klinux.dto.IpInformationDto;
+import com.klinux.service.IpInformationService;
 
 @RestController
-public class EvaluacionFraudeController {
+public class IpInformationController {
 
-	private static Logger log = LoggerFactory.getLogger(EvaluacionFraudeController.class);
+	private static Logger log = LoggerFactory.getLogger(IpInformationController.class);
 
 	@Autowired
-	private CountryService contryService;
+	private IpInformationService contryService;
 
 	@GetMapping("/ip-information/{ip}")
-	public CompletableFuture<FraudeResponseDto> evaluacionFraude(@PathVariable String ip) {
-		CompletableFuture<FraudeResponseDto> response = new CompletableFuture<FraudeResponseDto>();
+	public CompletableFuture<IpInformationDto> getIpInformation(@PathVariable String ip) {
+		CompletableFuture<IpInformationDto> response = new CompletableFuture<IpInformationDto>();
 		try {
 			response = contryService.getIpInformation(ip);
-			System.out.println(response.toString());
 		} catch (Exception e) {
 			log.error(new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage());
 		}

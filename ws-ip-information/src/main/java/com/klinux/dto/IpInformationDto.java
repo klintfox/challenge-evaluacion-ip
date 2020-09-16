@@ -2,7 +2,7 @@ package com.klinux.dto;
 
 import java.io.Serializable;
 
-public class FraudeResponseDto implements Serializable {
+public class IpInformationDto implements Serializable {
 
 	private static final long serialVersionUID = -3602790210316764323L;
 

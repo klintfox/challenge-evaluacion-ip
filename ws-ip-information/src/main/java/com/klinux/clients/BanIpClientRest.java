@@ -8,8 +8,8 @@ import feign.Headers;
 
 @Headers("Content-Type: application/json")
 @FeignClient(name = "${feign.nameBlackList}", url = "${WS_BLACK_LIST:http://localhost}:8001")
-public interface BlackListClientRest {
+public interface BanIpClientRest {
 
 	@GetMapping("/ban-ip/{ip}")
-	String getBlackListIp(@PathVariable(value = "ip") String ip);
+	String getIpStatus(@PathVariable(value = "ip") String ip);
 }
