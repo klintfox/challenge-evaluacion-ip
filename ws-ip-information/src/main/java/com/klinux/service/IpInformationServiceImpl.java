@@ -78,22 +78,24 @@ public class IpInformationServiceImpl implements IpInformationService {
 		if (country != null) {
 			response.setCountryName(country.getCountryName());
 			response.setIsoName(country.getCountryCode3());
-			requestCurrencyByCountryName(country.getCountryName());
+			requestFromCurrencyByCountryNameClient(country.getCountryName());
 		}
 	}
 
-	private void requestCurrencyByCountryName(String countryName) throws JsonMappingException, JsonProcessingException {
+	private void requestFromCurrencyByCountryNameClient(String countryName)
+			throws JsonMappingException, JsonProcessingException {
 		String jsonCurrency = currencyClient.getCurrencyByCountryName(countryName);
 		if (jsonCurrency != null) {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode jsonNode = mapper.readTree(jsonCurrency);
 			String currencyCode = jsonNode.get(0).get("currencies").get(0).get("code").asText();
 			response.setCurrencyName(currencyCode);
-			requestCurrencyDetail(currencyCode);
+			requestFromCurrencyDetailClient(currencyCode);
 		}
 	}
 
-	private void requestCurrencyDetail(String currencyCode) throws JsonMappingException, JsonProcessingException {
+	private void requestFromCurrencyDetailClient(String currencyCode)
+			throws JsonMappingException, JsonProcessingException {
 		String jsonConversion = conversionClient.getCurrencyDetail(currencyCode);
 		if (jsonConversion != null) {
 			ObjectMapper mapperConversion = new ObjectMapper();
