@@ -1,5 +1,6 @@
 package com.klinux.service;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -20,6 +21,8 @@ import com.klinux.constants.Constantes;
 import com.klinux.dto.CountryDto;
 import com.klinux.dto.IpInformationDto;
 
+import feign.FeignException.NotFound;
+
 @Service
 public class IpInformationServiceImpl implements IpInformationService {
 
@@ -37,17 +40,19 @@ public class IpInformationServiceImpl implements IpInformationService {
 	@Autowired
 	private ConversionClientRest conversionClient;
 
-	private IpInformationDto response = new IpInformationDto();
+	private IpInformationDto response;
 
 	@Async
 	public CompletableFuture<IpInformationDto> getIpInformation(String ip) {
 		log.info("Name: " + Thread.currentThread().getName());
 		try {
+			response = new IpInformationDto();
 			requestIpTypeFromBanIpClient(ip);
 		} catch (Exception e) {
 			log.error(printError(e));
+			response.setEstado(Constantes.Error);
+			response.setMessage(printError(e));
 		}
-		log.info(response.toString());
 		return CompletableFuture.completedFuture(response);
 	}
 
@@ -55,9 +60,6 @@ public class IpInformationServiceImpl implements IpInformationService {
 		String typeIp = banIpClient.getIpStatus(ip);
 		if (typeIp != null) {
 			evaluateTypeIp(typeIp, ip);
-		} else {
-			response.setEstado(Constantes.STATUS_FAIL);
-			response.setMessage(Constantes.WS_BAN_IP_NOT_FOUND);
 		}
 	}
 
@@ -77,9 +79,6 @@ public class IpInformationServiceImpl implements IpInformationService {
 			response.setCountryName(country.getCountryName());
 			response.setIsoName(country.getCountryCode3());
 			requestCurrencyByCountryName(country.getCountryName());
-		} else {
-			response.setEstado(Constantes.STATUS_FAIL);
-			response.setMessage(Constantes.WS_COUNTRY_NOT_FOUND);
 		}
 	}
 
@@ -91,9 +90,6 @@ public class IpInformationServiceImpl implements IpInformationService {
 			String currencyCode = jsonNode.get(0).get("currencies").get(0).get("code").asText();
 			response.setCurrencyName(currencyCode);
 			requestCurrencyDetail(currencyCode);
-		} else {
-			response.setEstado(Constantes.STATUS_FAIL);
-			response.setMessage(Constantes.WS_CURRENCY_NOT_FOUND);
 		}
 	}
 
@@ -105,13 +101,20 @@ public class IpInformationServiceImpl implements IpInformationService {
 			String rate = jsonNodeConversion.get("rates").get(currencyCode).asText();
 			response.setCurrencyValue(rate);
 			response.setEstado(Constantes.STATUS_SUCCESS);
-		} else {
-			response.setEstado(Constantes.STATUS_FAIL);
-			response.setMessage(Constantes.WS_CONVERSION_NOT_FOUND);
+			response.setMessage(null);
 		}
 	}
 
 	public String printError(Exception e) {
 		return new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage();
 	}
+
+	public IpInformationDto getResponse() {
+		return response;
+	}
+
+	public void setResponse(IpInformationDto response) {
+		this.response = response;
+	}
+
 }

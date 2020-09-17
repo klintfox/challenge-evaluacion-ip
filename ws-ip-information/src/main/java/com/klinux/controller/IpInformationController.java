@@ -5,6 +5,8 @@ import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +26,7 @@ public class IpInformationController {
 	public CompletableFuture<IpInformationDto> getIpInformation(@PathVariable String ip) {
 		CompletableFuture<IpInformationDto> response = new CompletableFuture<IpInformationDto>();
 		try {
-			response = contryService.getIpInformation(ip);
+			response = contryService.getIpInformation(ip);			
 		} catch (Exception e) {
 			log.error(new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage());
 		}

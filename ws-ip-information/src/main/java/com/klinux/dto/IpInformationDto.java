@@ -61,4 +61,10 @@ public class IpInformationDto implements Serializable {
 		this.currencyValue = currencyValue;
 	}
 
+	@Override
+	public String toString() {
+		return "IpInformationDto [estado=" + estado + ", message=" + message + ", countryName=" + countryName
+				+ ", isoName=" + isoName + ", currencyName=" + currencyName + ", currencyValue=" + currencyValue + "]";
+	}
+
 }
