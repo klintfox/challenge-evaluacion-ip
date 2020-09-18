@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.klinux.dto.CountryDto;
+import com.klinux.exception.ResourceNotAvailableException;
+import com.klinux.exception.ResourceNotFoundException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,7 +20,7 @@ class CountryClientRestTest {
 	private CountryClientRest countryFeign;
 
 	@Test
-	void testGetCountryDetail() {
+	void testGetCountryDetail() throws ResourceNotFoundException, ResourceNotAvailableException {
 		CountryDto country = countryFeign.getCountryDetail("186.84.91.60");
 		assertTrue(country.toString().length() > 0);
 	}

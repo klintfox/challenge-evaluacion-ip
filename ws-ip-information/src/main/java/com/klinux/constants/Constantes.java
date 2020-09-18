@@ -14,8 +14,9 @@ public class Constantes {
 
 	public static final String IP_IS_BAN = "The ip is banned";
 
-	public static final String WS_BAN_IP_NOT_FOUND = "Error with the service WS_BAN_IP";
-	public static final String WS_COUNTRY_NOT_FOUND = "Error with the service WS_COUNTRY";
-	public static final String WS_CURRENCY_NOT_FOUND = "Error with the service: WS_CURRENCY";
-	public static final String WS_CONVERSION_NOT_FOUND = "Error with the WS_CONVERSION";
+	public static final String WS_BAN_IP_NOT_FOUND = "Service WS_BAN_IP not found";
+	public static final String WS_COUNTRY_NOT_FOUND = "Service WS_COUNTRY not found";
+	public static final String WS_CURRENCY_NOT_FOUND = "Service WS_CURRENCY not found";
+	public static final String WS_CONVERSION_NOT_FOUND = "Service WS_CONVERSION not found";
+
 }

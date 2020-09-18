@@ -1,10 +1,7 @@
 package com.klinux.service;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -13,57 +10,52 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.klinux.clients.BanIpClientRest;
-import com.klinux.clients.ConversionClientRest;
-import com.klinux.clients.CountryClientRest;
-import com.klinux.clients.CurrencyClientRest;
+import com.jayway.jsonpath.internal.Utils;
+import com.klinux.clients.BanIpClientImp;
+import com.klinux.clients.ConversionClientImp;
+import com.klinux.clients.CountryClientImp;
+import com.klinux.clients.CurrencyClientImp;
 import com.klinux.constants.Constantes;
 import com.klinux.dto.CountryDto;
 import com.klinux.dto.IpInformationDto;
-
-import feign.FeignException.NotFound;
+import com.klinux.exception.ResourceNotAvailableException;
+import com.klinux.exception.ResourceNotFoundException;
 
 @Service
 public class IpInformationServiceImpl implements IpInformationService {
 
-	private static Logger log = LoggerFactory.getLogger(IpInformationServiceImpl.class);
+	@Autowired
+	private BanIpClientImp banIpClient;
 
 	@Autowired
-	private BanIpClientRest banIpClient;
+	private CountryClientImp countryClient;
 
 	@Autowired
-	private CountryClientRest countryClient;
+	private CurrencyClientImp currencyClient;
 
 	@Autowired
-	private CurrencyClientRest currencyClient;
-
-	@Autowired
-	private ConversionClientRest conversionClient;
+	private ConversionClientImp conversionClient;
 
 	private IpInformationDto response;
 
 	@Async
-	public CompletableFuture<IpInformationDto> getIpInformation(String ip) {
-		log.info("Name: " + Thread.currentThread().getName());
-		try {
-			response = new IpInformationDto();
-			requestIpTypeFromBanIpClient(ip);
-		} catch (Exception e) {
-			log.error(printError(e));
-			response.setEstado(Constantes.Error);
-			response.setMessage(printError(e));
-		}
+	public CompletableFuture<IpInformationDto> getIpInformation(String ip) throws JsonMappingException,
+			JsonProcessingException, ResourceNotFoundException, ResourceNotAvailableException {
+		response = new IpInformationDto();
+		requestFromBanIpClient(ip);
 		return CompletableFuture.completedFuture(response);
 	}
 
-	private void requestIpTypeFromBanIpClient(String ip) throws JsonMappingException, JsonProcessingException {
-		String typeIp = banIpClient.getIpStatus(ip);
-		if (typeIp != null) {
+	private void requestFromBanIpClient(String ip) throws JsonMappingException, JsonProcessingException,
+			ResourceNotFoundException, ResourceNotAvailableException {
+		String typeIp = banIpClient.isBanned(ip);
+		if (!Utils.isEmpty(typeIp)) {
 			evaluateTypeIp(typeIp, ip);
 		}
 	}
 
-	private void evaluateTypeIp(String typeIp, String ip) throws JsonMappingException, JsonProcessingException {
+	private void evaluateTypeIp(String typeIp, String ip) throws JsonMappingException, JsonProcessingException,
+			ResourceNotFoundException, ResourceNotAvailableException {
 		if (typeIp.equals(Constantes.ENABLED)) {
 			requestFromCountryDetailClient(ip);
 		}
@@ -73,7 +65,8 @@ public class IpInformationServiceImpl implements IpInformationService {
 		}
 	}
 
-	private void requestFromCountryDetailClient(String ip) throws JsonMappingException, JsonProcessingException {
+	private void requestFromCountryDetailClient(String ip) throws JsonMappingException, JsonProcessingException,
+			ResourceNotFoundException, ResourceNotAvailableException {
 		CountryDto country = countryClient.getCountryDetail(ip);
 		if (country != null) {
 			response.setCountryName(country.getCountryName());
@@ -82,10 +75,10 @@ public class IpInformationServiceImpl implements IpInformationService {
 		}
 	}
 
-	private void requestFromCurrencyByCountryNameClient(String countryName)
-			throws JsonMappingException, JsonProcessingException {
+	private void requestFromCurrencyByCountryNameClient(String countryName) throws JsonMappingException,
+			JsonProcessingException, ResourceNotFoundException, ResourceNotAvailableException {
 		String jsonCurrency = currencyClient.getCurrencyByCountryName(countryName);
-		if (jsonCurrency != null) {
+		if (!Utils.isEmpty(jsonCurrency)) {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode jsonNode = mapper.readTree(jsonCurrency);
 			String currencyCode = jsonNode.get(0).get("currencies").get(0).get("code").asText();
@@ -95,9 +88,10 @@ public class IpInformationServiceImpl implements IpInformationService {
 	}
 
 	private void requestFromCurrencyDetailClient(String currencyCode)
-			throws JsonMappingException, JsonProcessingException {
+			throws JsonMappingException, JsonProcessingException, ResourceNotFoundException,
+			ResourceNotAvailableException {
 		String jsonConversion = conversionClient.getCurrencyDetail(currencyCode);
-		if (jsonConversion != null) {
+		if (!Utils.isEmpty(jsonConversion)) {
 			ObjectMapper mapperConversion = new ObjectMapper();
 			JsonNode jsonNodeConversion = mapperConversion.readTree(jsonConversion);
 			String rate = jsonNodeConversion.get("rates").get(currencyCode).asText();
@@ -105,10 +99,6 @@ public class IpInformationServiceImpl implements IpInformationService {
 			response.setEstado(Constantes.STATUS_SUCCESS);
 			response.setMessage(null);
 		}
-	}
-
-	public String printError(Exception e) {
-		return new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage();
 	}
 
 	public IpInformationDto getResponse() {
