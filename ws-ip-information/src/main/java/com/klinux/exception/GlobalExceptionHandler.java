@@ -16,9 +16,15 @@ public class GlobalExceptionHandler {
 			WebRequest request) {
 		return new CompletableFuture<IpInformationDto>();
 	}
-	
+
 	@ExceptionHandler(ResourceNotAvailableException.class)
 	public CompletableFuture<IpInformationDto> resourceNotAvailableException(ResourceNotAvailableException ex,
+			WebRequest request) {
+		return new CompletableFuture<IpInformationDto>();
+	}
+
+	@ExceptionHandler(ResourceForbiddenException.class)
+	public CompletableFuture<IpInformationDto> resourceForbiddenException(ResourceForbiddenException ex,
 			WebRequest request) {
 		return new CompletableFuture<IpInformationDto>();
 	}

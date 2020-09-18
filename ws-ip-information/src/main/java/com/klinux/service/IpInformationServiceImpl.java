@@ -18,6 +18,7 @@ import com.klinux.clients.CurrencyClientImp;
 import com.klinux.constants.Constantes;
 import com.klinux.dto.CountryDto;
 import com.klinux.dto.IpInformationDto;
+import com.klinux.exception.ResourceForbiddenException;
 import com.klinux.exception.ResourceNotAvailableException;
 import com.klinux.exception.ResourceNotFoundException;
 
@@ -39,29 +40,19 @@ public class IpInformationServiceImpl implements IpInformationService {
 	private IpInformationDto response;
 
 	@Async
-	public CompletableFuture<IpInformationDto> getIpInformation(String ip) throws JsonMappingException,
-			JsonProcessingException, ResourceNotFoundException, ResourceNotAvailableException {
+	public CompletableFuture<IpInformationDto> getIpInformation(String ip)
+			throws JsonMappingException, JsonProcessingException, ResourceNotFoundException,
+			ResourceNotAvailableException, ResourceForbiddenException {
 		response = new IpInformationDto();
 		requestFromBanIpClient(ip);
 		return CompletableFuture.completedFuture(response);
 	}
 
 	private void requestFromBanIpClient(String ip) throws JsonMappingException, JsonProcessingException,
-			ResourceNotFoundException, ResourceNotAvailableException {
+			ResourceNotFoundException, ResourceNotAvailableException, ResourceForbiddenException {
 		String typeIp = banIpClient.isBanned(ip);
 		if (!Utils.isEmpty(typeIp)) {
-			evaluateTypeIp(typeIp, ip);
-		}
-	}
-
-	private void evaluateTypeIp(String typeIp, String ip) throws JsonMappingException, JsonProcessingException,
-			ResourceNotFoundException, ResourceNotAvailableException {
-		if (typeIp.equals(Constantes.ENABLED)) {
 			requestFromCountryDetailClient(ip);
-		}
-		if (typeIp.equals(Constantes.BANNED)) {
-			response.setEstado(Constantes.STATUS_SUCCESS);
-			response.setMessage(Constantes.IP_IS_BAN);
 		}
 	}
 
@@ -87,9 +78,8 @@ public class IpInformationServiceImpl implements IpInformationService {
 		}
 	}
 
-	private void requestFromCurrencyDetailClient(String currencyCode)
-			throws JsonMappingException, JsonProcessingException, ResourceNotFoundException,
-			ResourceNotAvailableException {
+	private void requestFromCurrencyDetailClient(String currencyCode) throws JsonMappingException,
+			JsonProcessingException, ResourceNotFoundException, ResourceNotAvailableException {
 		String jsonConversion = conversionClient.getCurrencyDetail(currencyCode);
 		if (!Utils.isEmpty(jsonConversion)) {
 			ObjectMapper mapperConversion = new ObjectMapper();

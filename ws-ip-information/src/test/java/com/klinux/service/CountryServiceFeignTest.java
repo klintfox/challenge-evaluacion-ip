@@ -13,6 +13,7 @@ import com.klinux.clients.ConversionClientRest;
 import com.klinux.clients.CountryClientRest;
 import com.klinux.clients.CurrencyClientRest;
 import com.klinux.dto.CountryDto;
+import com.klinux.exception.ResourceForbiddenException;
 import com.klinux.exception.ResourceNotAvailableException;
 import com.klinux.exception.ResourceNotFoundException;
 
@@ -35,7 +36,7 @@ class CountryServiceFeignTest {
 	private String ip = "186.84.91.61";
 
 	@Test
-	void testValidateIp() throws ResourceNotFoundException, ResourceNotAvailableException {
+	void testValidateIp() throws ResourceNotFoundException, ResourceNotAvailableException, ResourceForbiddenException {
 		String estado = banIpClient.isBanned(ip);
 		assertTrue(estado.length() > 0);
 	}
