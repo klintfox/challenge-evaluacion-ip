@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jayway.jsonpath.internal.Utils;
 import com.klinux.constants.Constantes;
-import com.klinux.exception.ResourceNotAvailableException;
 import com.klinux.exception.ResourceNotFoundException;
 
 @Service
@@ -19,21 +18,21 @@ public class ConversionClientImp implements ConversionClientRest {
 	private ConversionClientRest request;
 
 	@Override
-	public String getCurrencyDetail(String currencyCode)
-			throws ResourceNotFoundException, ResourceNotAvailableException {
+	public String getCurrencyDetail(String currencyCode) throws ResourceNotFoundException {
 		String jsonConversion = "";
 		try {
 			jsonConversion = request.getCurrencyDetail(currencyCode);
 			if (Utils.isEmpty(jsonConversion)) {
-				log.error(Constantes.WS_BAN_IP_NOT_FOUND);
-				throw new ResourceNotFoundException(Constantes.WS_BAN_IP_NOT_FOUND);
+				log.error(Constantes.WS_COUNTRY_NOT_FOUND);
+				throw new ResourceNotFoundException(Constantes.WS_COUNTRY_NOT_FOUND);
 			}
-		} catch (ResourceNotAvailableException e) {
-			throw new ResourceNotAvailableException("" + e.getMessage());
-		} catch (ResourceNotFoundException e) {
-			throw new ResourceNotFoundException("" + e.getMessage());
+//		} catch (ResourceNotAvailableException e) {
+//			throw new ResourceNotAvailableException("" + e.getMessage());
+//		} catch (ResourceNotFoundException e) {
+//			throw new ResourceNotFoundException("" + e.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
+			throw new ResourceNotFoundException("" + e.getMessage());
 		}
 		return jsonConversion;
 	}

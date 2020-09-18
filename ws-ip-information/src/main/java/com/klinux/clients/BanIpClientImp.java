@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jayway.jsonpath.internal.Utils;
 import com.klinux.constants.Constantes;
-import com.klinux.exception.ResourceNotAvailableException;
 import com.klinux.exception.ResourceNotFoundException;
 
 @Service
@@ -19,7 +18,7 @@ public class BanIpClientImp implements BanIpClientRest {
 	private BanIpClientRest request;
 
 	@Override
-	public String isBanned(String ip) throws ResourceNotAvailableException, ResourceNotFoundException {
+	public String isBanned(String ip) throws ResourceNotFoundException {
 		String typeIp = "";
 		try {
 			typeIp = request.isBanned(ip);
@@ -27,14 +26,14 @@ public class BanIpClientImp implements BanIpClientRest {
 				log.error(Constantes.WS_BAN_IP_NOT_FOUND);
 				throw new ResourceNotFoundException(Constantes.WS_BAN_IP_NOT_FOUND);
 			}
-		} catch (ResourceNotAvailableException e) {
-			throw new ResourceNotAvailableException("" + e.getMessage());
-		} catch (ResourceNotFoundException e) {
-			throw new ResourceNotFoundException("" + e.getMessage());
+//		} catch (ResourceNotAvailableException e) {
+//			throw new ResourceNotAvailableException("" + e.getMessage());
+//		} catch (ResourceNotFoundException e) {
+//			throw new ResourceNotFoundException("" + e.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
+			throw new ResourceNotFoundException("" + e.getMessage());
 		}
 		return typeIp;
 	}
-
 }

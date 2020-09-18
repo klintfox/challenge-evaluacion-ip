@@ -4,7 +4,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.klinux.exception.ResourceNotAvailableException;
 import com.klinux.exception.ResourceNotFoundException;
 
 import feign.Headers;
@@ -15,5 +14,5 @@ public interface BanIpClientRest {
 
 	@GetMapping("/ban-ip/{ip}")
 	String isBanned(@PathVariable(value = "ip") String ip)
-			throws ResourceNotFoundException, ResourceNotAvailableException;
+			throws ResourceNotFoundException;
 }
