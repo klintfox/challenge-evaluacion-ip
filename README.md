@@ -95,6 +95,6 @@ El ejercicio consiste en construir una API Rest que permita:
 - 186.84.91.70
 - 186.84.91.71
 - 186.84.91.72
-- 186.84.91.73
-- 186.84.91.74
-- 186.84.91.75
+
+### Nota
+- Realizar el registro en http://data.fixer.io/api/ para obtener la key para utilizar el servicio que devuelve la información de las monedas utilizada en el archivo .properties del proyecto "ip-information" 
