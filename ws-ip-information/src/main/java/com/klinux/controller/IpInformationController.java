@@ -21,14 +21,10 @@ public class IpInformationController {
 	private IpInformationService contryService;
 
 	@GetMapping("/ip-information/{ip}")
-	public CompletableFuture<IpInformationDto> getIpInformation(@PathVariable String ip) {
+	public CompletableFuture<IpInformationDto> getIpInformation(@PathVariable String ip) throws Exception {
 		log.info("Name: " + Thread.currentThread().getName());
 		CompletableFuture<IpInformationDto> response = new CompletableFuture<IpInformationDto>();
-		try {
-			response = contryService.getIpInformation(ip);
-		} catch (Exception e) {
-			log.error(new Throwable().getStackTrace()[0].getMethodName() + " - " + e.getMessage());
-		}
+		response = contryService.getIpInformation(ip);
 		return response;
 	}
 }
